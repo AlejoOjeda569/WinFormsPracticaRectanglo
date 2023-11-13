@@ -60,9 +60,9 @@ namespace WinFormsPracticaRectanglo
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            Form2 frm = new Form2() { Text= "Nuevo formulario" };
+            Form2 frm = new Form2() { Text = "Nuevo formulario" };
             DialogResult dr = frm.ShowDialog(this);
-            if (dr==DialogResult.Cancel)
+            if (dr == DialogResult.Cancel)
             {
                 return;
             }
@@ -71,6 +71,38 @@ namespace WinFormsPracticaRectanglo
             var r = ConstruirFila();
             SetearFila(r, rectangulo);
             AgregarFila(r);
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            if (dgvDatos.SelectedRows.Count == 0)
+            {
+                return;
+            }
+            DialogResult dr = MessageBox.Show("¿Desea dar de baja el cuadrado?",
+                "Confirmar Baja",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2);
+            if (dr == DialogResult.No)
+            {
+                return;
+            }
+            var filaSeleccionada = dgvDatos.SelectedRows[0];
+            Rectangulo rectangulo = filaSeleccionada.Tag as Rectangulo;
+            repositorio.Borrar(rectangulo);
+
+            
+
+            QuitarFila(filaSeleccionada);
+            MessageBox.Show("Registro borrado", "Mensaje", MessageBoxButtons.OK,
+    MessageBoxIcon.Information);
+
+        }
+
+        private void QuitarFila(DataGridViewRow r)
+        {
+            dgvDatos.Rows.Remove(r);
         }
     }
 }

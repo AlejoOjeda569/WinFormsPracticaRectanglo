@@ -80,6 +80,7 @@
             btnBorrar.Name = "btnBorrar";
             btnBorrar.Size = new Size(43, 22);
             btnBorrar.Text = "borrar";
+            btnBorrar.Click += btnBorrar_Click;
             // 
             // btnFiltrar
             // 
